@@ -1,6 +1,7 @@
 import cors from 'cors'
 import express from "express"
 import mongoose from 'mongoose'
+import userRouter from './routes/user.js'
 
 const app = express();
 
@@ -12,9 +13,7 @@ app.use(express.json())
 
 const router = express.Router()
 
-app.use('/', function(req, res){
-    res.send('')
-})
+app.use('/user', userRouter)
 
 
 const db = mongoose.connection;
