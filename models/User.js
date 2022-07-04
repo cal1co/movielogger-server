@@ -3,8 +3,8 @@ import mongoose from 'mongoose'
 const UserSchema = new mongoose.Schema({
     username:{
         type:String,
-        default:"unnamed user",
-        unique:true
+        unique:true,
+        required:true
     },
     email:{
         type:String,

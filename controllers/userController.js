@@ -54,7 +54,7 @@ const login = async (req, res) => { // login user
 }
 
 const signup = async (req, res) => { // signup user
-  const { email, password } = req.body
+  const { username, email, password } = req.body
   console.log("SIGNUP IS BEING CALLED IN BACKEND")
   const encryptedPassword = bcrypt.hashSync(password, 10);
   // console.log('reaching token')
@@ -65,7 +65,8 @@ const signup = async (req, res) => { // signup user
   }
   const bcryptPass = bcrypt.hashSync(password, 17)
   const createUser = await userInfo.create({ // CREATE USER
-    email: email, // can just be 'email' but looks a little confusing
+    username,
+    email, // can just be 'email' but looks a little confusing
     password: encryptedPassword
   })
   if (!createUser){
