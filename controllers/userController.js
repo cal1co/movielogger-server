@@ -2,7 +2,7 @@ import userInfo from '../models/User.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-const createWebToken = (id) => {
+const userToken = (id) => {
     return jwt.sign(
         {id},
         process.env.TOKEN // jwt.secretKey,
