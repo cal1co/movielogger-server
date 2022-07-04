@@ -4,11 +4,11 @@ import mongoose from 'mongoose'
 import userRouter from './routes/user.js'
 
 const app = express();
-
 const PORT = '8080'
 
 app.listen(PORT, () => console.log(`Server running on ${PORT}`))
 
+app.use(cors())
 app.use(express.json())
 
 const router = express.Router()
