@@ -1,4 +1,4 @@
-import userController from '../controllers/userController'
+import userController from '../controllers/userController.js'
 import express from 'express'
 import userAuth from '../middleware/userAuth.js'
 
@@ -10,3 +10,5 @@ router.get('/userIn', checkAuth, userController.userIn)
 
 router.post('/login', userController.login)
 router.post('/signup', userController.signup)
+
+export default router
