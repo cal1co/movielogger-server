@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const RatingsSchema = new mongoose.Schema({
+const RatingSchema = new mongoose.Schema({
     user:{
         type:Object,
         ref:"User",
@@ -9,9 +9,11 @@ const RatingsSchema = new mongoose.Schema({
     title:{
         type:String,
         id:Number,
+        required:true
     },
     score:{
         type:Number,
+        required:true
     },
     createdAt:{
         type:Date,
@@ -20,4 +22,4 @@ const RatingsSchema = new mongoose.Schema({
 })
 
 
-module.exports = mongoose.model("Ratings", RatingsSchema)
+module.exports = mongoose.model("Rating", RatingSchema)
