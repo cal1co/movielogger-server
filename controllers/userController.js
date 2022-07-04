@@ -1,3 +1,4 @@
+import animalIdenticon from '../animal-identicon/animalIdenticon.js'
 import userInfo from '../models/User.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
@@ -55,7 +56,8 @@ const login = async (req, res) => { // login user
 
 const signup = async (req, res) => { // signup user
   const { username, email, password } = req.body
-  console.log("SIGNUP IS BEING CALLED IN BACKEND")
+  const avatar = animalIdenticon(username)
+  console.log("SIGNUP IS BEING CALLED IN BACKEND", "AVATAR", avatar)
   const encryptedPassword = bcrypt.hashSync(password, 10);
   // console.log('reaching token')
   const inUse = await userInfo.findOne({email});
@@ -67,16 +69,20 @@ const signup = async (req, res) => { // signup user
   const createUser = await userInfo.create({ // CREATE USER
     username,
     email, // can just be 'email' but looks a little confusing
+    avatar,
     password: encryptedPassword
   })
   if (!createUser){
     console.log(`can't create user`)
     return res.status(404).json({response: `Error: can't create user`})
   }
+
+
   const token = userToken(createUser.id)
   return res.status(200).json({ // login user
     id:createUser.id,
-    token
+    token,
+    avatar
   })
 }
 
