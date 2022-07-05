@@ -27,8 +27,10 @@ const edit = async (req, res) => {
 }
 
 const getUser = async (req, res) => { // grab info for user
-  const userId = req.params.id;
-  const currentUser = await userInfo.findOne({id: userId})
+  // const userId = req.params.id;
+  const username = req.params.id;
+  // console.log(req.params)
+  const currentUser = await userInfo.findOne({username})
     // .populate("trips")
   return res.status(200).json(currentUser);
 }
