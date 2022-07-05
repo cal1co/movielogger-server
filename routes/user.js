@@ -10,5 +10,7 @@ router.get('/userIn', checkAuth, userController.userIn)
 router.get('/:id', userController.getUser)
 router.post('/login', userController.login)
 router.post('/signup', userController.signup)
+router.post('/follow', userController.follow)
+router.post('/unfollow', userController.unfollow)
 
 export default router

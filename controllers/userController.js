@@ -1,7 +1,10 @@
 import animalIdenticon from '../animal-identicon/animalIdenticon.js'
 import userInfo from '../models/User.js'
+import followers from '../models/Followers.js'
+import following from '../models/Following.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import mongoose from 'mongoose'
 
 const userToken = (id) => {
     return jwt.sign(
@@ -31,7 +34,7 @@ const getUser = async (req, res) => { // grab info for user
   const username = req.params.id;
   // console.log(req.params)
   const currentUser = await userInfo.findOne({username})
-    // .populate("trips")
+    .select("avatar followers following username email")
   return res.status(200).json(currentUser);
 }
 
@@ -51,7 +54,7 @@ const login = async (req, res) => { // login user
   const token = userToken(user.id);
   return res.status(200).json({
     id:user.id,
-    name: user.name,
+    name: user.username,
     token
   })
 }
@@ -88,10 +91,61 @@ const signup = async (req, res) => { // signup user
   })
 }
 
+const follow = async (req, res) => {
+  console.log("FOLLOWING USER")
+  const userId = req.body.id 
+  const followId = req.body.followId
+
+  const user = await userInfo.findOne({_id: userId})
+  const following = await userInfo.findOne({_id: followId})
+
+  user.following.push({username:following.username, avatar:following.avatar})
+  following.followers.push({username:user.username, avatar:user.avatar})
+
+  await user.save()
+  await following.save()
+  return res.status(200).json(user);
+}
+
+const unfollow = async (req, res) => {
+  console.log("UNFOLLOWING USER")
+  const userId = req.body.username
+  const followId = req.body.followedUsername
+
+  const user = await userInfo.findOne({username: userId})
+  const following = await userInfo.findOne({username: followId})
+
+  // console.log(user, following)
+
+  const userIndex = user.following.findIndex((obj) => {
+    return obj.username === following.username
+  })
+  const followedIndex = following.followers.findIndex((obj) => {
+    return obj.username === user.username
+  })
+
+  user.following.splice(userIndex, 1)
+  following.followers.splice(followedIndex, 1)
+
+  await user.save()
+  await following.save()
+  return res.status(200).json(user);
+}
+
+const getFollower = async (req, res) => {
+
+}
+
+const getFollowing = async(req, res) => {
+
+}
+
 export default {
   userIn,
   edit,
   getUser,
   login,
-  signup
+  signup,
+  follow,
+  unfollow
 }

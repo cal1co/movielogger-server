@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const FollowingSchema = new mongoose.Schema({
+const FollowersSchema = new mongoose.Schema({
     username:{
         type:String,
         required:true
@@ -12,4 +12,4 @@ const FollowingSchema = new mongoose.Schema({
 })
 
 
-export default mongoose.model("Following", FollowingSchema)
+export default mongoose.model("Followers", FollowersSchema)

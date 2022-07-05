@@ -41,14 +41,14 @@ const UserSchema = new mongoose.Schema({
         default:{}
     },
     followers: { // has many : array of all users following a single user_id
-        type:Object,
+        type:Array,
         ref:"Followers",
-        default:{}
+        default:[]
     },
     following: { // has many : array of all users follower by single user_id
-        type:Object,
+        type:Array,
         ref:"Following",
-        default:{}
+        default:[]
     }
 
 

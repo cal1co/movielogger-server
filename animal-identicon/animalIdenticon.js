@@ -12,8 +12,10 @@ const AnimalIdenticon = (username) => {
         const svg = `<svg style="background-color: #${color}; height: ${size}px; width: ${size}px">
                         <image xlink:href="https://ssl.gstatic.com/docs/common/profile/${icon}_lg.png" style="height: ${size}px; width: ${size}px"></image>
                         </svg>`
-
-        return svg
+        const backgroundColor = `background-color: #${color}; height: ${size}px; width: ${size}px`
+        const animal = `https://ssl.gstatic.com/docs/common/profile/${icon}_lg.png`
+        
+        return `{"color":"#${color}", "image":"${animal}"}`
     }
     
     const generateDigits = () => {
