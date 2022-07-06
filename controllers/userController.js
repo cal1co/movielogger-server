@@ -5,6 +5,8 @@ import following from '../models/Following.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import mongoose from 'mongoose'
+import dotenv from 'dotenv'
+
 
 const userToken = (id) => {
     return jwt.sign(
