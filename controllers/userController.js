@@ -115,21 +115,24 @@ const unfollow = async (req, res) => {
   const user = await userInfo.findOne({username: userId})
   const following = await userInfo.findOne({username: followId})
 
+  console.log(req.body)
   // console.log(user, following)
+  if (user && following){
+    const userIndex = user.following.findIndex((obj) => {
+      return obj.username === following.username
+    })
+    const followedIndex = following.followers.findIndex((obj) => {
+      return obj.username === user.username
+    })
+    user.following.splice(userIndex, 1)
+    following.followers.splice(followedIndex, 1)
+  
+    await user.save()
+    await following.save()
+  
+    return res.status(200).json(user);
+  } // else return error message
 
-  const userIndex = user.following.findIndex((obj) => {
-    return obj.username === following.username
-  })
-  const followedIndex = following.followers.findIndex((obj) => {
-    return obj.username === user.username
-  })
-
-  user.following.splice(userIndex, 1)
-  following.followers.splice(followedIndex, 1)
-
-  await user.save()
-  await following.save()
-  return res.status(200).json(user);
 }
 
 const getFollower = async (req, res) => {
@@ -140,6 +143,43 @@ const getFollowing = async(req, res) => {
 
 }
 
+const getUsersFromSearchQuery = async (req, res) => {
+  console.log('FINDING USERS FROM QUERY', req.params.query)
+  const db = mongoose.connection;
+  // console.log(db)
+  // const matched = await userInfo.aggregate(
+  //   [search({
+  //     text: {
+  //       query: req.params.query,
+  //       path: ['username'],
+  //       fuzzy: { 
+  //         maxEdits: 1, 
+  //         prefixLength: 2, 
+  //         maxExpansions: 100
+  //       }
+  //     }
+  //   }]));
+
+    const matched = await userInfo.aggregate([
+      {
+        $search:{
+          index: "default",
+          text:{
+            query:req.params.query,
+            path:["username"],
+            fuzzy:{
+              maxEdits:2,
+              prefixLength:2,
+              maxExpansions:100
+            }
+          }
+        }
+      }
+    ])
+    console.log("MATCHED", matched)
+  return res.status(200).json(req.params.query);
+}
+
 export default {
   userIn,
   edit,
@@ -147,5 +187,6 @@ export default {
   login,
   signup,
   follow,
-  unfollow
+  unfollow,
+  getUsersFromSearchQuery
 }

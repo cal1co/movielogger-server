@@ -8,6 +8,7 @@ const router = express.Router()
 
 router.get('/userIn', checkAuth, userController.userIn)
 router.get('/:id', userController.getUser)
+router.get('/find/:query', userController.getUsersFromSearchQuery)
 router.post('/login', userController.login)
 router.post('/signup', userController.signup)
 router.post('/follow', userController.follow)
