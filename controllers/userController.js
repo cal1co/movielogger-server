@@ -40,6 +40,7 @@ const getUser = async (req, res) => { // grab info for user
 
 const login = async (req, res) => { // login user
   console.log('login controller called')
+  req.header("Access-Control-Allow-Origin", "*")
   const { email, password } = req.body
   const user = await userInfo.findOne({email})
   if (!user){ // incorrect credentials - email
