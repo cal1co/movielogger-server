@@ -40,9 +40,10 @@ const getUser = async (req, res) => { // grab info for user
 
 const login = async (req, res) => { // login user
   console.log('login controller called')
-  req.header("Access-Control-Allow-Origin", "*")
+  // req.header("Access-Control-Allow-Origin", "*")
   const { email, password } = req.body
   const user = await userInfo.findOne({email})
+  console.log("USER IS HERE!!!!", user)
   if (!user){ // incorrect credentials - email
     console.log('Sorry, invalid username or password')
     return res.status(401).json({response: 'Sorry, invalid username or password'})
@@ -56,8 +57,7 @@ const login = async (req, res) => { // login user
   return res.status(200).json({
     id:user.id,
     name: user.username,
-    token,
-    avatar:user.avatar
+    token
   })
 }
 
