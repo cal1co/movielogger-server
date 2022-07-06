@@ -43,7 +43,7 @@ const login = async (req, res) => { // login user
   // req.header("Access-Control-Allow-Origin", "*")
   const { email, password } = req.body
   const user = await userInfo.findOne({email})
-  console.log("USER IS HERE!!!!", user)
+  console.log("PASSWORD IS HERE!!!", password, "USER IS HERE!!!!", user)
   if (!user){ // incorrect credentials - email
     console.log('Sorry, invalid username or password')
     return res.status(401).json({response: 'Sorry, invalid username or password'})
