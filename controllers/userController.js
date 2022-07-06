@@ -145,39 +145,25 @@ const getFollowing = async(req, res) => {
 
 const getUsersFromSearchQuery = async (req, res) => {
   console.log('FINDING USERS FROM QUERY', req.params.query)
-  const db = mongoose.connection;
-  // console.log(db)
-  // const matched = await userInfo.aggregate(
-  //   [search({
-  //     text: {
-  //       query: req.params.query,
-  //       path: ['username'],
-  //       fuzzy: { 
-  //         maxEdits: 1, 
-  //         prefixLength: 2, 
-  //         maxExpansions: 100
-  //       }
-  //     }
-  //   }]));
 
-    const matched = await userInfo.aggregate([
-      {
-        $search:{
-          index: "default",
-          text:{
-            query:req.params.query,
-            path:["username"],
-            fuzzy:{
-              maxEdits:2,
-              prefixLength:2,
-              maxExpansions:100
-            }
+  const matched = await userInfo.aggregate([ // WOW! this is so cool
+    {
+      $search: {
+        index: "default",
+        text:{
+          query:req.params.query,
+          path:["username"],
+          fuzzy:{
+            maxEdits:2,
+            prefixLength:2,
+            maxExpansions:100
           }
         }
       }
-    ])
+    }
+  ])
     console.log("MATCHED", matched)
-  return res.status(200).json(req.params.query);
+  return res.status(200).json(matched);
 }
 
 export default {
