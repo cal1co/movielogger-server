@@ -26,24 +26,24 @@ const UserSchema = new mongoose.Schema({ // USER HAS FILMS WHICH HAVE RATINGS, W
         default: Date.now
     },
     films:{
-        type:Object,
-        ref:"Films",
-        default:{}
+        type:Array,
+        ref:"Film",
+        default:[]
     },
     watchlist: { // has one 
-        type:Object,
+        type:Array,
         ref:"Watchlist",
-        default:{}
+        default:[]
     },
     watched: {
-        type:Object,
+        type:Array,
         ref:"Watched",
-        default:{}
+        default:[]
     }, 
     ratings: { // has many
-        type:Object,
+        type:Array,
         ref:"Rating",
-        default:{}
+        default:[]
     },
     followers: { // has many : array of all users following a single user_id
         type:Array,

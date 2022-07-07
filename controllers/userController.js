@@ -190,6 +190,35 @@ const removeLike = async (req, res) => {
 const rate = async (req, res) => {
   console.log("RATE IS BEING CALLED!")
   console.log(req.body)
+
+  const username = req.body.user.name
+  const film = req.body.filmInfo.filmData
+  const setRating = req.body.rating
+
+  const currentUser = await userInfo.findOne({username})
+
+  const matched = await currentUser.aggregate([ // WOW! this is so cool
+    {
+      $search: {
+        index: "default",
+        text:{
+          query:film.id,
+          path:["info"],
+        }
+      }
+    }
+  ])
+  console.log(matched)
+  if (!matched){
+    console.log("CAN'T FIND A MATCH!!!")
+  }
+
+  const ratingData = {rating: setRating, film: {id: film.id, poster: film.poster_path, title: film.title}}
+  currentUser.ratings.push(ratingData)
+  await currentUser.save()
+  const updatedUser = await userInfo.findOne({_id: userId})
+  console.log('update user', updatedUser)
+  return res.status(200).json(updatedUser);
 }
 const removeRate = async(req, res) => {
 

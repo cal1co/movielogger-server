@@ -1,10 +1,17 @@
 import mongoose from 'mongoose'
 
 const FilmSchema = new mongoose.Schema({
-    info:{
-        id:Number,
-        poster:String,
-        title:String
+    id:{
+        type:Number,
+        required:true
+    },
+    poster:{
+        type:String,
+        required:true
+    },
+    title:{
+        type:String,
+        required:true
     },
     rating:{
         type:Number,
