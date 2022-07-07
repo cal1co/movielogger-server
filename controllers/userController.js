@@ -225,7 +225,7 @@ const rate = async (req, res) => {
   currentUser.ratings.push(ratingData)
   await currentUser.save()
   const updatedUser = await userInfo.findOne({username})
-  return res.status(200).json({id:user.id,
+  return res.status(200).json({id:updatedUser.id,
     name: updatedUser.username,
     avatar: JSON.parse(updatedUser.avatar),
     ratings:updatedUser.ratings,
