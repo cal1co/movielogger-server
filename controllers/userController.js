@@ -65,6 +65,7 @@ const login = async (req, res) => { // login user
 
 const signup = async (req, res) => { // signup user
   const { username, email, password } = req.body
+  console.log("LOOK HERE PLEASE!!!!!", req.body)
   const avatar = animalIdenticon(username)
   console.log("SIGNUP IS BEING CALLED IN BACKEND", "AVATAR", avatar)
   const encryptedPassword = bcrypt.hashSync(password, 10);
