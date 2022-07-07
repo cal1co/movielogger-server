@@ -15,6 +15,12 @@ const userToken = (id) => {
     )
 }
 
+const addFilm = (filmInfo) => { // adds film to user if not existing.
+
+}
+
+
+
 const userIn = async (req,res) => { // check login
     const message = 'user in'
     return res.status(200).json(message) 
@@ -181,6 +187,14 @@ const like = async (req, res) => {
 const removeLike = async (req, res) => {
 
 }
+const rate = async (req, res) => {
+  console.log("RATE IS BEING CALLED!")
+  
+}
+const removeRate = async(req, res) => {
+
+}
+
 const watched = async (req, res) => {
   
 }
@@ -193,9 +207,9 @@ const watchlist = async (req, res) => {
 const removeWatchlist = async (req, res) => {
 
 }
+const getUserFilms = async (req, res) => {
 
-
-
+}
 
 
 
@@ -210,8 +224,11 @@ export default {
   getUsersFromSearchQuery,
   like,
   removeLike,
+  rate,
+  removeRate,
   watched,
   removeWatched,
   watchlist,
-  removeWatchlist
+  removeWatchlist,
+  getUserFilms
 }
