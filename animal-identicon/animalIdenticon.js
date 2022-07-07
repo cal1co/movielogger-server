@@ -23,7 +23,7 @@ const AnimalIdenticon = (username) => {
     }
     
     const generateIcon = (digits) => {
-        const animalNumber = digits % 59
+        const animalNumber = digits % 49
         const animals = [
             'alligator', 'auroch', 'beaver', 'buffalo', 'camel', 'capybara',
             'chameleon', 'chinchilla', 'chipmunk', 'cormorant', 'crow', 'dingo', 'dolphin',
@@ -32,7 +32,6 @@ const AnimalIdenticon = (username) => {
             'quagga', 'rabbit', 'raccoon', 'rhino', 'sheep', 'shrew', 'skunk', 'tiger', 'turtle',
             'walrus', 'wolf', 'wombat'
         ]
-
         return animals[animalNumber]
     }
     

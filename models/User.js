@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({ // USER HAS FILMS WHICH HAVE RATINGS, WATCHED, WATCHLIST AS AN OBJECT. USER ALSO HAS THESE FIELDS SEPARATELY FOR DIFFERENT API REQUESTS.
     username:{
         type:String,
         unique:true,
