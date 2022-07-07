@@ -69,8 +69,9 @@ const signup = async (req, res) => { // signup user
   console.log("SIGNUP IS BEING CALLED IN BACKEND", "AVATAR", avatar)
   const encryptedPassword = bcrypt.hashSync(password, 10);
   // console.log('reaching token')
-  const inUse = await userInfo.findOne({email});
-  if (inUse){
+  const inUseMail = await userInfo.findOne({email});
+  const inUseName = await userInfo.findOne({username});
+  if (inUseMail || inUseName){
     console.log('email already in use')
     return res.status(401).json({response:'email already in use'});
   }
