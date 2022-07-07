@@ -42,7 +42,7 @@ const getUser = async (req, res) => { // grab info for user
   const username = req.params.id;
   // console.log(req.params)
   const currentUser = await userInfo.findOne({username})
-    .select("avatar followers following username email")
+    .select("avatar followers following username email ratings")
   return res.status(200).json(currentUser);
 }
 
