@@ -96,7 +96,8 @@ const signup = async (req, res) => { // signup user
   return res.status(200).json({ // login user
     id:createUser.id,
     token,
-    avatar
+    avatar:createUser.avatar,
+    name:createUser.username
   })
 }
 
