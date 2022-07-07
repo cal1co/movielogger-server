@@ -71,9 +71,12 @@ const signup = async (req, res) => { // signup user
   // console.log('reaching token')
   const inUseMail = await userInfo.findOne({email});
   const inUseName = await userInfo.findOne({username});
-  if (inUseMail || inUseName){
+  if (inUseMail){
     console.log('email already in use')
     return res.status(401).json({response:'email already in use'});
+  }
+  if (inUseName){
+    return res.status(401).json({response:'username already in use'});
   }
   const bcryptPass = bcrypt.hashSync(password, 17)
   const createUser = await userInfo.create({ // CREATE USER
