@@ -25,6 +25,11 @@ const UserSchema = new mongoose.Schema({ // USER HAS FILMS WHICH HAVE RATINGS, W
         type:Date,
         default: Date.now
     },
+    films:{
+        type:Object,
+        ref:"Films",
+        default:{}
+    },
     watchlist: { // has one 
         type:Object,
         ref:"Watchlist",
