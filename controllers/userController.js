@@ -214,10 +214,16 @@ const rate = async (req, res) => {
   // }
 
   const ratingData = {rating: setRating, film: {id: film.id, poster: film.poster_path, title: film.title}}
+  currentUser.ratings.forEach((e) => {
+    if (e.film.id === film.id){
+      console.log("ALREADY RATED THIS FILM!!")
+      const index = currentUser.ratings.indexOf(e)
+      currentUser.ratings.splice(index, 1)
+    } 
+  })
   currentUser.ratings.push(ratingData)
   await currentUser.save()
   const updatedUser = await userInfo.findOne({username})
-  console.log('update user', updatedUser)
   return res.status(200).json(updatedUser);
 }
 const removeRate = async(req, res) => {
