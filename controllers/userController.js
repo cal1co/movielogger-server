@@ -189,7 +189,7 @@ const removeLike = async (req, res) => {
 }
 const rate = async (req, res) => {
   console.log("RATE IS BEING CALLED!")
-  
+  console.log(req.body)
 }
 const removeRate = async(req, res) => {
 
