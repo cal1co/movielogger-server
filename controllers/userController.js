@@ -65,6 +65,7 @@ const login = async (req, res) => { // login user
     id:user.id,
     name: user.username,
     avatar: JSON.parse(user.avatar),
+    ratings:user.ratings,
     token,
   })
 }
@@ -216,7 +217,7 @@ const rate = async (req, res) => {
   const ratingData = {rating: setRating, film: {id: film.id, poster: film.poster_path, title: film.title}}
   currentUser.ratings.forEach((e) => {
     if (e.film.id === film.id){
-      console.log("ALREADY RATED THIS FILM!!")
+      console.log("User has rated this film before")
       const index = currentUser.ratings.indexOf(e)
       currentUser.ratings.splice(index, 1)
     } 
@@ -224,7 +225,11 @@ const rate = async (req, res) => {
   currentUser.ratings.push(ratingData)
   await currentUser.save()
   const updatedUser = await userInfo.findOne({username})
-  return res.status(200).json(updatedUser);
+  return res.status(200).json({id:user.id,
+    name: updatedUser.username,
+    avatar: JSON.parse(updatedUser.avatar),
+    ratings:updatedUser.ratings,
+    token});
 }
 const removeRate = async(req, res) => {
 
