@@ -216,7 +216,7 @@ const rate = async (req, res) => {
   const ratingData = {rating: setRating, film: {id: film.id, poster: film.poster_path, title: film.title}}
   currentUser.ratings.push(ratingData)
   await currentUser.save()
-  const updatedUser = await userInfo.findOne({_id: userId})
+  const updatedUser = await userInfo.findOne({username})
   console.log('update user', updatedUser)
   return res.status(200).json(updatedUser);
 }
