@@ -197,21 +197,21 @@ const rate = async (req, res) => {
 
   const currentUser = await userInfo.findOne({username})
 
-  const matched = await currentUser.aggregate([ // WOW! this is so cool
-    {
-      $search: {
-        index: "default",
-        text:{
-          query:film.id,
-          path:["info"],
-        }
-      }
-    }
-  ])
-  console.log(matched)
-  if (!matched){
-    console.log("CAN'T FIND A MATCH!!!")
-  }
+  // const matched = await currentUser.aggregate([ // WOW! this is so cool
+  //   {
+  //     $search: {
+  //       index: "default",
+  //       text:{
+  //         query:film.id,
+  //         path:["info"],
+  //       }
+  //     }
+  //   }
+  // ])
+  // console.log(matched)
+  // if (!matched){
+  //   console.log("CAN'T FIND A MATCH!!!")
+  // }
 
   const ratingData = {rating: setRating, film: {id: film.id, poster: film.poster_path, title: film.title}}
   currentUser.ratings.push(ratingData)
