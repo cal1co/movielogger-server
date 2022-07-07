@@ -146,7 +146,6 @@ const unfollow = async (req, res) => {
 }
 
 const getFollower = async (req, res) => {
-
 }
 
 const getFollowing = async(req, res) => {
@@ -176,6 +175,30 @@ const getUsersFromSearchQuery = async (req, res) => {
   return res.status(200).json(matched);
 }
 
+const like = async (req, res) => {
+  
+}
+const removeLike = async (req, res) => {
+
+}
+const watched = async (req, res) => {
+  
+}
+const removeWatched = async (req, res) => {
+
+}
+const watchlist = async (req, res) => {
+  
+}
+const removeWatchlist = async (req, res) => {
+
+}
+
+
+
+
+
+
 export default {
   userIn,
   edit,
@@ -184,5 +207,11 @@ export default {
   signup,
   follow,
   unfollow,
-  getUsersFromSearchQuery
+  getUsersFromSearchQuery,
+  like,
+  removeLike,
+  watched,
+  removeWatched,
+  watchlist,
+  removeWatchlist
 }
