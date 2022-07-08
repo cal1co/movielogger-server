@@ -42,7 +42,7 @@ const getUser = async (req, res) => { // grab info for user
   const username = req.params.id;
   // console.log(req.params)
   const currentUser = await userInfo.findOne({username})
-    .select("avatar followers following username email ratings")
+    .select("avatar followers following username email ratings films")
   return res.status(200).json(currentUser);
 }
 
@@ -191,30 +191,19 @@ const removeLike = async (req, res) => {
 const rate = async (req, res) => {
   console.log("RATE IS BEING CALLED!")
   console.log(req.body)
-
-  const username = req.body.user.name
-  const film = req.body.filmInfo.filmData
-  const setRating = req.body.rating
+  const {user, liked, watched, rating, watchlist, filmInfo} = req.body
+  const film = filmInfo.filmData
+  const username = user.name
 
   const currentUser = await userInfo.findOne({username})
 
-  // const matched = await currentUser.aggregate([ // WOW! this is so cool
-  //   {
-  //     $search: {
-  //       index: "default",
-  //       text:{
-  //         query:film.id,
-  //         path:["info"],
-  //       }
-  //     }
-  //   }
-  // ])
-  // console.log(matched)
-  // if (!matched){
-  //   console.log("CAN'T FIND A MATCH!!!")
-  // }
-
-  const ratingData = {rating: setRating, film: {id: film.id, poster: film.poster_path, title: film.title}}
+  const ratingData = {
+    film: {id: film.id, poster: film.poster_path, title: film.title},
+    rating,
+    watched,
+    liked,
+    watchlist 
+  }
   currentUser.ratings.forEach((e) => {
     if (e.film.id === film.id){
       console.log("User has rated this film before")
