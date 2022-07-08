@@ -240,13 +240,13 @@ const film = async (req, res) => {
 
 }
 const rate = async (data, user) => {
-
+  console.log('********************************************************************************************************************')
   const ratingData = {
     film: {id: data.id, poster: data.poster_path, title: data.title},
     rating: data.rating
   }
   user.ratings.forEach((e) => {
-    if (e.film.id === film.id){
+    if (e.film.id === data.id){
       console.log("User has rated this film before")
       const index = user.ratings.indexOf(e)
       user.ratings.splice(index, 1)
