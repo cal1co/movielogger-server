@@ -199,11 +199,24 @@ const rate = async (req, res) => {
 
   const ratingData = {
     film: {id: film.id, poster: film.poster_path, title: film.title},
+    rating
+  }
+  const filmObj = {
+    id: film.id,
+    post: film.post_path,
+    title: film.title,
     rating,
     watched,
     liked,
-    watchlist 
+    watchlist
   }
+  currentUser.films.forEach((e) => {
+    if (e.id === film.id){
+      console.log("USER HAS THIS FILM")
+      const index = currentUser.films.indexOf(e)
+      currentUser.films.splice(index, 1)
+    } 
+  })
   currentUser.ratings.forEach((e) => {
     if (e.film.id === film.id){
       console.log("User has rated this film before")
@@ -211,6 +224,8 @@ const rate = async (req, res) => {
       currentUser.ratings.splice(index, 1)
     } 
   })
+  
+  currentUser.films.push(filmObj)
   currentUser.ratings.push(ratingData)
   await currentUser.save()
   const updatedUser = await userInfo.findOne({username})
@@ -218,6 +233,7 @@ const rate = async (req, res) => {
   return res.status(200).json({id:updatedUser.id,
     name: updatedUser.username,
     avatar: JSON.parse(updatedUser.avatar),
+    films: updatedUser.films,
     ratings:updatedUser.ratings,
     token});
 }
