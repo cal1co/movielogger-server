@@ -226,9 +226,9 @@ const film = async (req, res) => {
     watchlist()
   }
 
-
   await currentUser.save()
   const updatedUser = await userInfo.findOne({username})
+  console.log("UPDATED USER", updatedUser)
   const token = userToken(updatedUser.id)
   return res.status(200).json({id:updatedUser.id,
     name: updatedUser.username,
@@ -282,13 +282,9 @@ export default {
   unfollow,
   getUsersFromSearchQuery,
   like,
-  removeLike,
   rate,
-  removeRate,
   watched,
-  removeWatched,
   watchlist,
-  removeWatchlist,
   getUserFilms,
   film
 }
