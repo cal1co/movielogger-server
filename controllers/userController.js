@@ -246,6 +246,7 @@ const rate = async (data, user) => {
     rating: data.rating
   }
   user.ratings.forEach((e) => {
+    console.log(e.film.id, data.id)
     if (e.film.id === data.id){
       console.log("User has rated this film before")
       const index = user.ratings.indexOf(e)
