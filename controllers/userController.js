@@ -213,11 +213,11 @@ const film = async (req, res) => {
 
   // See if other user film values have changed
   if (rating !== false){
-    rate(filmObj, currentUser)
+    let data = rate(filmObj, currentUser)
+    currentUser.ratings.push(data)
   }
   if (liked){
-    let data = like(filmObj, currentUser)
-    currentUser.ratings.push(data)
+    // let data = like(filmObj, currentUser)
   }
   if (watched){
     watched()
