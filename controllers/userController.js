@@ -182,25 +182,17 @@ const getUsersFromSearchQuery = async (req, res) => {
   return res.status(200).json(matched);
 }
 
-const like = async (req, res) => {
-  
-}
-const removeLike = async (req, res) => {
 
-}
-const rate = async (req, res) => {
-  console.log("RATE IS BEING CALLED!")
+
+
+const film = async (req, res) => {
+  console.log("FILM IS BEING CALLED!")
   console.log(req.body)
   const {user, liked, watched, rating, watchlist, filmInfo} = req.body
   const film = filmInfo.filmData
   const username = user.name
 
   const currentUser = await userInfo.findOne({username})
-
-  const ratingData = {
-    film: {id: film.id, poster: film.poster_path, title: film.title},
-    rating
-  }
   const filmObj = {
     id: film.id,
     poster: film.poster_path,
@@ -217,16 +209,24 @@ const rate = async (req, res) => {
       currentUser.films.splice(index, 1)
     } 
   })
-  currentUser.ratings.forEach((e) => {
-    if (e.film.id === film.id){
-      console.log("User has rated this film before")
-      const index = currentUser.ratings.indexOf(e)
-      currentUser.ratings.splice(index, 1)
-    } 
-  })
-
   currentUser.films.push(filmObj)
-  currentUser.ratings.push(ratingData)
+
+  // See if other user film values have changed
+  if (rating){
+    rate(req.body)
+  }
+  if (liked){
+    let data = like(filmObj, currentUser)
+    currentUser.push(data)
+  }
+  if (watched){
+    watched()
+  }
+  if (watchlist){
+    watchlist()
+  }
+
+
   await currentUser.save()
   const updatedUser = await userInfo.findOne({username})
   const token = userToken(updatedUser.id)
@@ -235,24 +235,37 @@ const rate = async (req, res) => {
     avatar: JSON.parse(updatedUser.avatar),
     films: updatedUser.films,
     ratings:updatedUser.ratings,
-    token});
-}
-const removeRate = async(req, res) => {
+    token
+  });
 
 }
+const rate = async (data, user) => {
 
+  const ratingData = {
+    film: {id: data.id, poster: data.poster_path, title: data.title},
+    rating: data.rating
+  }
+  user.ratings.forEach((e) => {
+    if (e.film.id === film.id){
+      console.log("User has rated this film before")
+      const index = user.ratings.indexOf(e)
+      user.ratings.splice(index, 1)
+    } 
+  })
+  return ratingData
+}
+
+const like = async (req, res) => {
+  
+}
 const watched = async (req, res) => {
   
 }
-const removeWatched = async (req, res) => {
 
-}
 const watchlist = async (req, res) => {
   
 }
-const removeWatchlist = async (req, res) => {
 
-}
 const getUserFilms = async (req, res) => {
 
 }
@@ -276,5 +289,6 @@ export default {
   removeWatched,
   watchlist,
   removeWatchlist,
-  getUserFilms
+  getUserFilms,
+  film
 }

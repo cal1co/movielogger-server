@@ -17,14 +17,16 @@ router.post('/signup', userController.signup)
 router.post('/follow', userController.follow)
 router.post('/unfollow', userController.unfollow)
 
-router.post('/like', userController.like)
-router.post('/remove/like', userController.removeLike)
-router.post('/rate', userController.rate)
-router.post('/remove/rate', userController.removeRate)
-router.post('/watched', userController.watched)
-router.post('/remove/watched', userController.removeWatched)
-router.post('/watchlist', userController.watchlist)
-router.post('/remove/watchlist', userController.removeWatchlist)
+router.post('/film', userController.film)
+
+// router.post('/like', userController.like)
+// router.post('/remove/like', userController.removeLike)
+// router.post('/rate', userController.rate)
+// router.post('/remove/rate', userController.removeRate)
+// router.post('/watched', userController.watched)
+// router.post('/remove/watched', userController.removeWatched)
+// router.post('/watchlist', userController.watchlist)
+// router.post('/remove/watchlist', userController.removeWatchlist)
 
 
 export default router
