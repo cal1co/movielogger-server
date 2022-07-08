@@ -42,7 +42,7 @@ const getUser = async (req, res) => { // grab info for user
   const username = req.params.id;
   // console.log(req.params)
   const currentUser = await userInfo.findOne({username})
-    .select("avatar followers following username email ratings films")
+    .select("avatar followers following username email films")
   return res.status(200).json(currentUser);
 }
 
@@ -211,21 +211,6 @@ const film = async (req, res) => {
   })
   currentUser.films.push(filmObj)
 
-  // See if other user film values have changed
-  if (rating !== false){
-    let data = rate(filmObj, currentUser)
-    currentUser.ratings.push(data)
-  }
-  if (liked){
-    // let data = like(filmObj, currentUser)
-  }
-  if (watched){
-    watched()
-  }
-  if (watchlist){
-    watchlist()
-  }
-
   await currentUser.save()
   const updatedUser = await userInfo.findOne({username})
   console.log("UPDATED USER", updatedUser)
@@ -234,37 +219,9 @@ const film = async (req, res) => {
     name: updatedUser.username,
     avatar: JSON.parse(updatedUser.avatar),
     films: updatedUser.films,
-    ratings:updatedUser.ratings,
     token
   });
 
-}
-const rate = async (data, user) => {
-  console.log('********************************************************************************************************************')
-  const ratingData = {
-    film: {id: data.id, poster: data.poster_path, title: data.title},
-    rating: data.rating
-  }
-  user.ratings.forEach((e) => {
-    console.log(e.film.id, data.id)
-    if (e.film.id === data.id){
-      console.log("User has rated this film before")
-      const index = user.ratings.indexOf(e)
-      user.ratings.splice(index, 1)
-    } 
-  })
-  return ratingData
-}
-
-const like = async (req, res) => {
-  
-}
-const watched = async (req, res) => {
-  
-}
-
-const watchlist = async (req, res) => {
-  
 }
 
 const getUserFilms = async (req, res) => {
@@ -282,10 +239,6 @@ export default {
   follow,
   unfollow,
   getUsersFromSearchQuery,
-  like,
-  rate,
-  watched,
-  watchlist,
   getUserFilms,
   film
 }
