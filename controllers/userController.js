@@ -217,7 +217,7 @@ const film = async (req, res) => {
   }
   if (liked){
     let data = like(filmObj, currentUser)
-    currentUser.push(data)
+    currentUser.ratings.push(data)
   }
   if (watched){
     watched()
