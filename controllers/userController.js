@@ -213,7 +213,7 @@ const film = async (req, res) => {
 
   // See if other user film values have changed
   if (rating){
-    rate(req.body)
+    rate(req.body, currentUser)
   }
   if (liked){
     let data = like(filmObj, currentUser)
