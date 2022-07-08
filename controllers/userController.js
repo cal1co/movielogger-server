@@ -203,7 +203,7 @@ const rate = async (req, res) => {
   }
   const filmObj = {
     id: film.id,
-    post: film.post_path,
+    poster: film.poster_path,
     title: film.title,
     rating,
     watched,
@@ -224,7 +224,7 @@ const rate = async (req, res) => {
       currentUser.ratings.splice(index, 1)
     } 
   })
-  
+
   currentUser.films.push(filmObj)
   currentUser.ratings.push(ratingData)
   await currentUser.save()
