@@ -46,6 +46,13 @@ const getUser = async (req, res) => { // grab info for user
   return res.status(200).json(currentUser);
 }
 
+const getUserById = async (req, res) => {
+  const id = req.params.id 
+  const user = await userInfo.findOne({_id: id})
+  .select("avatar followers following username email films")
+  return res.status(200).json(user)
+}
+
 const login = async (req, res) => { // login user
   console.log('login controller called')
   // req.header("Access-Control-Allow-Origin", "*")
@@ -234,6 +241,7 @@ export default {
   userIn,
   edit,
   getUser,
+  getUserById,
   login,
   signup,
   follow,

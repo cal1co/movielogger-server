@@ -8,6 +8,7 @@ const router = express.Router()
 
 router.get('/userIn', checkAuth, userController.userIn)
 router.get('/:id', userController.getUser)
+router.get('/find/:id', userController.getUserById)
 router.get('/find/:query', userController.getUsersFromSearchQuery)
 router.get('films', userController.getUserFilms)
 
@@ -18,15 +19,6 @@ router.post('/follow', userController.follow)
 router.post('/unfollow', userController.unfollow)
 
 router.post('/film', userController.film)
-
-// router.post('/like', userController.like)
-// router.post('/remove/like', userController.removeLike)
-// router.post('/rate', userController.rate)
-// router.post('/remove/rate', userController.removeRate)
-// router.post('/watched', userController.watched)
-// router.post('/remove/watched', userController.removeWatched)
-// router.post('/watchlist', userController.watchlist)
-// router.post('/remove/watchlist', userController.removeWatchlist)
 
 
 export default router
