@@ -73,6 +73,7 @@ const login = async (req, res) => { // login user
     name: user.username,
     avatar: JSON.parse(user.avatar),
     ratings:user.ratings,
+    watchlist,
     token,
   })
 }
@@ -111,7 +112,7 @@ const signup = async (req, res) => { // signup user
     id:createUser.id,
     token,
     avatar:JSON.parse(createUser.avatar),
-    name:createUser.username
+    name:createUser.username,
   })
 }
 
