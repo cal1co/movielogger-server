@@ -8,7 +8,7 @@ const router = express.Router()
 
 router.get('/userIn', checkAuth, userController.userIn)
 router.get('/:id', userController.getUser)
-router.get('/find/:id', userController.getUserById)
+router.get('/find/id/:id', userController.getUserById)
 router.get('/find/:query', userController.getUsersFromSearchQuery)
 router.get('films', userController.getUserFilms)
 
