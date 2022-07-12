@@ -77,7 +77,7 @@ const checkRoom = async (data) => {
 
         
     user.save()
-    room.save()
+    // room.save()
 }
 
 const saveMsg = async (data) => {
@@ -95,7 +95,6 @@ const saveMsg = async (data) => {
             }
         })
         peep.save()
-        console.log("PEEP ROOMS HERE:-------------------------------------", peep.rooms)
     }
     room.messages.push(messageObj)
     room.save()
@@ -128,7 +127,7 @@ io.on('connection', (socket) => {
     })
     socket.on('message', (msg) => {
         console.log("RECIEVED MESSAGE: ", msg)
-        socket.to(msg.roomId).emit('message', msg.message)
+        socket.to(msg.roomId).emit('message', msg)
         saveMsg(msg)
     })
 
