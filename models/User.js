@@ -30,6 +30,11 @@ const UserSchema = new mongoose.Schema({ // USER HAS FILMS WHICH HAVE RATINGS, W
         ref:"Film",
         default:[]
     },
+    rooms:{
+        type:Array,
+        ref:'Room',
+        default:[]
+    },
     watchlist: { // has one 
         type:Array,
         ref:"Watchlist",
