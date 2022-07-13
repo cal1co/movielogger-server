@@ -130,12 +130,9 @@ io.on('connection', (socket) => {
         socket.to(msg.roomId).emit('message', msg)
         saveMsg(msg)
     })
-
     socket.on('disconnecting', () => {
         console.log("+++++++++++++++++++++++++++++++++++++()()()()", )
     })
-
-
     socket.on('disconnect', () => {
         console.log('A USER DISCONNECTED')
         delete users[socket.id]
