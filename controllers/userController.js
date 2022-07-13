@@ -73,7 +73,7 @@ const login = async (req, res) => { // login user
     name: user.username,
     avatar: JSON.parse(user.avatar),
     ratings:user.ratings,
-    watchlist,
+    watchlist: user.watchlist,
     token,
   })
 }
