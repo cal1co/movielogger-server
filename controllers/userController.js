@@ -42,7 +42,7 @@ const getUser = async (req, res) => { // grab info for user
   const username = req.params.id;
   // console.log(req.params)
   const currentUser = await userInfo.findOne({username})
-    .select("avatar followers following username email films")
+    .select("avatar followers following username email films rooms watchlist")
   return res.status(200).json(currentUser);
 }
 
@@ -77,6 +77,7 @@ const login = async (req, res) => { // login user
     token,
   })
 }
+
 
 const signup = async (req, res) => { // signup user
   const { username, email, password } = req.body
